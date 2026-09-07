@@ -1,0 +1,14 @@
+torch
+torchvision
+ultralytics
+pillow
+fastapi
+uvicorn
+python-multipart
+sqlalchemy
+passlib[bcrypt]
+python-jose[cryptography]
+httpx
+pytest
+google-genai
+pydantic[email]

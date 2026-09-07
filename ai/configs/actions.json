@@ -1,0 +1,40 @@
+{
+  "disease_actions": {
+    "Tomato___Early_blight": "Remove affected leaves and improve airflow. Apply an appropriate fungicide if the infection is spreading.",
+    "Tomato___Late_blight": "Remove infected plant material and avoid overhead watering. Use an appropriate fungicide when necessary.",
+    "Tomato___healthy": "Plant appears healthy. Continue regular monitoring and proper watering.",
+    "Potato___Early_blight": "Remove affected leaves and maintain good field sanitation. Consider an appropriate fungicide if needed.",
+    "Potato___Late_blight": "Remove infected material quickly and avoid overhead irrigation. Apply appropriate disease control measures.",
+    "Pepper,_bell___Bacterial_spot": "Remove severely affected leaves and avoid overhead watering. Maintain field sanitation.",
+    "Pepper,_bell___healthy": "Plant appears healthy. Continue regular monitoring.",
+    "Apple___Apple_scab": "Remove infected leaves and fruit debris and improve airflow. Use appropriate fungicide management if needed.",
+    "Apple___healthy": "Plant appears healthy. Continue monitoring.",
+    "Cherry_(including_sour)___Powdery_mildew": "Prune for better air circulation and apply a sulfur-based fungicide. Avoid overhead watering.",
+    "Cherry_(including_sour)___healthy": "Plant appears healthy. Continue regular monitoring and proper watering.",
+    "Corn_(maize)___Common_rust_": "Apply a fungicide if rust pustules are spreading. Rotate crops next season to reduce recurrence.",
+    "Corn_(maize)___healthy": "Plant appears healthy. Continue regular monitoring and proper watering.",
+    "Grape___Black_rot": "Remove infected fruit and leaves immediately. Apply fungicide during wet periods and improve canopy airflow.",
+    "Grape___healthy": "Plant appears healthy. Continue regular monitoring and proper watering.",
+    "Peach___Bacterial_spot": "Remove and destroy infected leaves/fruit. Apply copper-based bactericide during dormant season.",
+    "Peach___healthy": "Plant appears healthy. Continue regular monitoring and proper watering.",
+    "Potato___healthy": "Plant appears healthy. Continue regular monitoring and proper watering.",
+    "Squash___Powdery_mildew": "Apply sulfur or potassium bicarbonate fungicide. Improve spacing for airflow and avoid overhead watering.",
+    "Strawberry___Leaf_scorch": "Remove infected leaves and avoid overhead irrigation. Apply fungicide if spreading persists.",
+    "Strawberry___healthy": "Plant appears healthy. Continue regular monitoring and proper watering.",
+    "Tomato___Bacterial_spot": "Remove infected leaves, avoid overhead watering, and apply copper-based bactericide.",
+    "Tomato___Leaf_Mold": "Improve greenhouse/field ventilation and reduce humidity. Apply fungicide if infection persists.",
+    "Tomato___Septoria_leaf_spot": "Remove affected lower leaves and apply fungicide. Avoid wetting foliage when watering.",
+    "Tomato___Spider_mites Two-spotted_spider_mite": "Apply miticide or insecticidal soap. Increase humidity around plants to discourage mites.",
+    "Tomato___Target_Spot": "Remove infected leaves and apply fungicide. Ensure adequate plant spacing for airflow.",
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus": "Remove and destroy infected plants. Control whitefly populations, the primary vector, using insecticide or sticky traps.",
+    "Tomato___Tomato_mosaic_virus": "Remove and destroy infected plants immediately. Disinfect tools and avoid handling healthy plants after infected ones."
+  },
+  "pest_actions": {
+    "aphids": "Inspect new growth and leaf undersides. Use physical removal or an appropriate pest-control method if infestation increases.",
+    "Thrips": "Inspect flowers and young leaves. Remove heavily affected material and use appropriate integrated pest management.",
+    "corn borer": "Inspect stems for entry holes and larvae. Remove severely affected plants and use appropriate pest management.",
+    "army worm": "Inspect leaves for feeding damage and larvae. Remove visible larvae and use appropriate pest management if infestation increases.",
+    "peach borer": "Inspect stems and trunk areas for borer damage. Remove affected material and use appropriate pest management.",
+    "flea beetle": "Monitor leaf damage and use appropriate integrated pest management if damage becomes significant."
+  }
+}

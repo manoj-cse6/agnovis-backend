@@ -1,0 +1,44 @@
+{
+  "Apple": [
+    "aphids"
+  ],
+  "Cherry": [
+    "aphids"
+  ],
+  "Corn": [
+    "corn borer",
+    "army worm",
+    "aphids"
+  ],
+  "Grape": [
+    "Viteus vitifoliae",
+    "Thrips",
+    "longlegged spider mite"
+  ],
+  "Peach": [
+    "peach borer",
+    "aphids"
+  ],
+  "Pepper": [
+    "aphids",
+    "Thrips",
+    "Scirtothrips dorsalis Hood"
+  ],
+  "Potato": [
+    "aphids",
+    "flea beetle"
+  ],
+  "Squash": [
+    "aphids",
+    "army worm"
+  ],
+  "Strawberry": [
+    "aphids",
+    "Thrips"
+  ],
+  "Tomato": [
+    "aphids",
+    "Thrips",
+    "Prodenia litura"
+  ]
+}

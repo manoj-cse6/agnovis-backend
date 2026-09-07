@@ -1,0 +1,16 @@
+{
+  "confidence": 0.7,
+  "mode": "crop_filtered",
+  "crops": [
+    "Apple",
+    "Cherry",
+    "Corn",
+    "Grape",
+    "Peach",
+    "Pepper",
+    "Potato",
+    "Squash",
+    "Strawberry",
+    "Tomato"
+  ]
+}

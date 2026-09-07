@@ -1,0 +1,18 @@
+{
+  "model": "MobileNetV3-Small",
+  "num_classes": 28,
+  "img_size": 224,
+  "best_accuracy": 0.9945172506017652,
+  "train_images": 29503,
+  "test_images": 7478,
+  "normalize_mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "normalize_std": [
+    0.229,
+    0.224,
+    0.225
+  ]
+}

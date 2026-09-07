@@ -1,0 +1,294 @@
+{
+  "diseases": {
+    "Apple___Apple_scab": {
+      "chemical_control": "Apply a protectant fungicide such as captan or a sterol-inhibiting fungicide at green tip and through primary scab season, following local label rates.",
+      "organic_control": "Use sulfur or potassium bicarbonate sprays during wet weather. Rake and destroy fallen leaves to reduce overwintering inoculum.",
+      "preventative_measures": "Prune for airflow, choose scab-resistant cultivars, and avoid overhead irrigation during leaf wetness periods.",
+      "severity_level": "Medium"
+    },
+    "Apple___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Maintain orchard sanitation and beneficial insect habitat.",
+      "preventative_measures": "Continue regular scouting, balanced nutrition, and pruning to keep canopy airflow high.",
+      "severity_level": "Low"
+    },
+    "Cherry_(including_sour)___Powdery_mildew": {
+      "chemical_control": "Apply sulfur or a registered DMI/QoI fungicide at the first sign of white mycelium, rotating modes of action.",
+      "organic_control": "Use potassium bicarbonate or wettable sulfur. Remove and destroy heavily infected shoots.",
+      "preventative_measures": "Prune for sunlight and airflow, avoid excess nitrogen, and do not wet foliage late in the day.",
+      "severity_level": "Medium"
+    },
+    "Cherry_(including_sour)___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Keep trees well mulched and monitor for early powdery growth on young leaves.",
+      "preventative_measures": "Maintain open canopy, irrigate at the base, and inspect weekly during humid weather.",
+      "severity_level": "Low"
+    },
+    "Corn_(maize)___Common_rust_": {
+      "chemical_control": "If pustules are spreading on susceptible hybrids, apply a foliar fungicide (strobilurin or triazole) according to growth stage and label.",
+      "organic_control": "Remove heavily infected volunteer plants. Use compost teas only as a supplement to scouting, not as a standalone cure.",
+      "preventative_measures": "Plant rust-tolerant hybrids, rotate crops, and avoid late planting in rust-prone regions.",
+      "severity_level": "Medium"
+    },
+    "Corn_(maize)___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Preserve beneficial insects and avoid unnecessary sprays.",
+      "preventative_measures": "Use certified seed, balanced fertility, and routine scouting for rust pustules after tasseling.",
+      "severity_level": "Low"
+    },
+    "Grape___Black_rot": {
+      "chemical_control": "Apply protectant fungicides (mancozeb, captan, or strobilurins) from early shoot growth through bunch close, especially before rain.",
+      "organic_control": "Remove mummified berries and infected leaves. Copper and sulfur programs can reduce spread in organic vineyards.",
+      "preventative_measures": "Improve canopy airflow, sanitize the trellis of last season's mummies, and avoid prolonged leaf wetness.",
+      "severity_level": "High"
+    },
+    "Grape___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Keep vineyard floor clean of mummies and prunings.",
+      "preventative_measures": "Continue canopy management, drip irrigation, and pre-rain scouting during bloom.",
+      "severity_level": "Low"
+    },
+    "Peach___Bacterial_spot": {
+      "chemical_control": "Apply copper during dormancy and early season; use registered antibiotic or copper programs only where labeled and resistance is managed.",
+      "organic_control": "Remove and destroy infected fruit and leaves. Copper sprays in dormancy plus strict sanitation.",
+      "preventative_measures": "Plant less susceptible cultivars, avoid overhead irrigation, and disinfect pruning tools between trees.",
+      "severity_level": "High"
+    },
+    "Peach___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Maintain orchard sanitation and copper-free unless local extension advises a dormant spray.",
+      "preventative_measures": "Scout fruit and leaves after storms; keep nitrogen moderate to avoid succulent tissue.",
+      "severity_level": "Low"
+    },
+    "Pepper,_bell___Bacterial_spot": {
+      "chemical_control": "Use copper plus mancozeb where labeled, and rotate with other registered bactericides. Avoid antibiotics unless locally recommended.",
+      "organic_control": "Remove severely spotted leaves, apply copper carefully, and use composted mulch to reduce splash.",
+      "preventative_measures": "Start with certified disease-free transplants, avoid working plants when wet, and rotate away from solanaceous crops.",
+      "severity_level": "High"
+    },
+    "Pepper,_bell___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Keep beds weed-free and inspect undersides of leaves weekly.",
+      "preventative_measures": "Drip irrigate, space plants for airflow, and sanitize trays and stakes.",
+      "severity_level": "Low"
+    },
+    "Potato___Early_blight": {
+      "chemical_control": "Apply chlorothalonil, mancozeb, or a registered strobilurin/DMI program on a protectant schedule once lesions appear.",
+      "organic_control": "Remove lower infected leaves, use copper or Bacillus-based biofungicides, and increase potassium if deficient.",
+      "preventative_measures": "Rotate out of potatoes/tomatoes for 2–3 years, hill properly, and avoid overhead irrigation late in the day.",
+      "severity_level": "Medium"
+    },
+    "Potato___Late_blight": {
+      "chemical_control": "Apply a late-blight specific fungicide (e.g., cyazofamid, mandipropamid, or local equivalent) immediately; protectant-only programs are often insufficient.",
+      "organic_control": "Destroy infected plants and volunteers. Copper can slow spread but will not eradicate an active outbreak.",
+      "preventative_measures": "Use certified seed tubers, destroy cull piles, and monitor weather-based blight forecasts daily.",
+      "severity_level": "High"
+    },
+    "Potato___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Keep foliage dry and remove volunteer potatoes.",
+      "preventative_measures": "Scout twice weekly in cool, wet weather and maintain hilling to protect tubers.",
+      "severity_level": "Low"
+    },
+    "Squash___Powdery_mildew": {
+      "chemical_control": "Rotate sulfur, potassium bicarbonate, and registered DMI/QoI fungicides at the first sign of white colonies.",
+      "organic_control": "Apply sulfur, potassium bicarbonate, or milk-based sprays early. Remove heavily infected leaves.",
+      "preventative_measures": "Choose tolerant varieties, avoid dense planting, and water at soil level.",
+      "severity_level": "Medium"
+    },
+    "Strawberry___Leaf_scorch": {
+      "chemical_control": "Apply a labeled foliar fungicide during wet periods if lesions expand from older leaves into the canopy.",
+      "organic_control": "Remove old infected leaves after harvest. Use wide spacing and organic mulch to reduce splash.",
+      "preventative_measures": "Renew plantings on schedule, avoid overhead irrigation, and do not over-fertilize with nitrogen.",
+      "severity_level": "Medium"
+    },
+    "Strawberry___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Keep beds weeded and remove dead leaves during renovation.",
+      "preventative_measures": "Maintain drip irrigation and inspect after prolonged rain.",
+      "severity_level": "Low"
+    },
+    "Tomato___Bacterial_spot": {
+      "chemical_control": "Apply copper-based bactericides with mancozeb where labeled; discontinue if phytotoxicity appears.",
+      "organic_control": "Remove infected foliage, use copper judiciously, and mulch to limit soil splash.",
+      "preventative_measures": "Use pathogen-free seed/transplants, avoid working wet plants, and rotate away from tomatoes and peppers.",
+      "severity_level": "High"
+    },
+    "Tomato___Early_blight": {
+      "chemical_control": "Begin a protectant fungicide program (chlorothalonil, mancozeb, or equivalent) at first target-like lesions on lower leaves.",
+      "organic_control": "Strip lower affected leaves, mulch heavily, and use copper or biofungicides as a supplement.",
+      "preventative_measures": "Stake/prune for airflow, water at the base, and rotate out of solanaceous crops.",
+      "severity_level": "Medium"
+    },
+    "Tomato___Late_blight": {
+      "chemical_control": "Treat immediately with a late-blight specific fungicide; protectants alone rarely stop an active epidemic.",
+      "organic_control": "Remove and destroy infected plants (do not compost). Copper may slow but not stop rapid outbreaks.",
+      "preventative_measures": "Avoid overhead watering, increase spacing, and respond to blight warnings the same day.",
+      "severity_level": "High"
+    },
+    "Tomato___Leaf_Mold": {
+      "chemical_control": "In protected culture, apply a labeled fungicide and rotate FRAC groups. Improve greenhouse climate control first.",
+      "organic_control": "Lower humidity, increase ventilation, and remove infected lower leaves.",
+      "preventative_measures": "Keep night humidity down, avoid leaf wetness, and space plants for airflow.",
+      "severity_level": "Medium"
+    },
+    "Tomato___Septoria_leaf_spot": {
+      "chemical_control": "Apply protectant fungicides to new growth after removing heavily spotted lower leaves.",
+      "organic_control": "Mulch to stop soil splash, prune lower canopy, and use copper or biofungicides early.",
+      "preventative_measures": "Stake plants, drip irrigate, and disinfect cages and stakes between seasons.",
+      "severity_level": "Medium"
+    },
+    "Tomato___Spider_mites Two-spotted_spider_mite": {
+      "chemical_control": "Use a selective miticide (not a broad-spectrum insecticide that kills predators). Repeat per label if populations rebound.",
+      "organic_control": "Spray insecticidal soap or horticultural oil on leaf undersides. Release predatory mites where available.",
+      "preventative_measures": "Avoid dusty, drought-stressed plants; hose undersides of leaves; do not overuse pyrethroids.",
+      "severity_level": "Medium"
+    },
+    "Tomato___Target_Spot": {
+      "chemical_control": "Apply a labeled foliar fungicide at the first concentric lesions and continue through humid weather.",
+      "organic_control": "Remove infected leaves and fruit. Improve airflow and use copper or biofungicides early.",
+      "preventative_measures": "Mulch, stake, and avoid wetting fruit and foliage. Rotate away from tomatoes.",
+      "severity_level": "Medium"
+    },
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus": {
+      "chemical_control": "Chemicals do not cure the virus. Control whitefly vectors with labeled insecticides or oils as part of an IPM program.",
+      "organic_control": "Rogue infected plants immediately. Use reflective mulch, insect-proof netting, and insecticidal soap on whiteflies.",
+      "preventative_measures": "Plant resistant cultivars, manage weeds that host whiteflies, and use virus-free transplants.",
+      "severity_level": "High"
+    },
+    "Tomato___Tomato_mosaic_virus": {
+      "chemical_control": "No chemical cure. Disinfect tools with 0.5% sodium hypochlorite or equivalent between plants.",
+      "organic_control": "Remove and destroy infected plants. Wash hands after handling tobacco or infected tissue.",
+      "preventative_measures": "Use certified seed, avoid smoking near plants, and do not reuse contaminated strings or clips.",
+      "severity_level": "High"
+    },
+    "Tomato___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Support beneficial insects and keep foliage dry.",
+      "preventative_measures": "Continue staking, base watering, and weekly scouting of lower leaves.",
+      "severity_level": "Low"
+    }
+  },
+  "pests": {
+    "ants": {
+      "chemical_control": "Use bait stations rather than broadcast sprays so worker ants carry product to the colony.",
+      "organic_control": "Remove honeydew sources (aphids), use diatomaceous earth on trails, and keep fruit off the soil.",
+      "preventative_measures": "Seal irrigation leaks, keep the field weed-free, and manage sap-feeding insects that attract ants.",
+      "severity_level": "Low"
+    },
+    "beetle": {
+      "chemical_control": "Apply a labeled foliar insecticide if defoliation exceeds local thresholds; time sprays for adult activity.",
+      "organic_control": "Hand-pick adults, use row covers on seedlings, and apply neem or spinosad where permitted.",
+      "preventative_measures": "Rotate crops, destroy crop residue, and use trap crops at field edges.",
+      "severity_level": "Medium"
+    },
+    "catterpillar": {
+      "chemical_control": "Use a labeled insecticide targeting Lepidoptera larvae; Bacillus thuringiensis (Bt) is effective on young caterpillars.",
+      "organic_control": "Apply Bt or spinosad, hand-pick larvae, and encourage parasitoid wasps.",
+      "preventative_measures": "Scout terminals twice weekly, destroy egg masses, and avoid spraying broad-spectrum products that kill predators.",
+      "severity_level": "High"
+    },
+    "earwig": {
+      "chemical_control": "Apply a labeled insecticide as a barrier at the base of plants only if fruit feeding is confirmed.",
+      "organic_control": "Trap with oil-filled containers, reduce mulch against stems, and keep harvest debris cleaned up.",
+      "preventative_measures": "Reduce excessive moisture and hiding places near fruiting plants.",
+      "severity_level": "Low"
+    },
+    "grasshopper": {
+      "chemical_control": "Treat nymphs at field margins with a labeled insecticide before they move into the crop.",
+      "organic_control": "Use nosema/biopesticides where available, till egg-laying sites, and maintain grassy trap strips that can be treated.",
+      "preventative_measures": "Scout borders early in the season and keep weeds down adjacent to the field.",
+      "severity_level": "Medium"
+    },
+    "moth": {
+      "chemical_control": "Target larvae, not flying adults. Use pheromone disruption or labeled larvicides when catches exceed thresholds.",
+      "organic_control": "Use pheromone traps, Bt on young larvae, and night lighting only if it does not attract more pests.",
+      "preventative_measures": "Destroy infested fruit, time plantings to avoid peak flights, and keep orchard sanitation high.",
+      "severity_level": "Medium"
+    },
+    "slug": {
+      "chemical_control": "Apply iron phosphate or metaldehyde baits (where legal) in the evening along plant rows.",
+      "organic_control": "Use iron phosphate baits, beer traps, and copper tape on raised beds. Reduce irrigation at night.",
+      "preventative_measures": "Clear weeds and boards, improve drainage, and harvest ripe fruit promptly.",
+      "severity_level": "Medium"
+    },
+    "snail": {
+      "chemical_control": "Use labeled molluscicide baits in damp weather when snails are active.",
+      "organic_control": "Hand-collect at dusk, apply iron phosphate baits, and use copper barriers.",
+      "preventative_measures": "Remove daytime hiding places and avoid over-mulching against stems.",
+      "severity_level": "Medium"
+    },
+    "wasp": {
+      "chemical_control": "Do not spray the crop routinely. Treat nests only with a labeled product if they threaten workers.",
+      "organic_control": "Protect ripening fruit with bags or nets; wasps are often beneficial predators of caterpillars.",
+      "preventative_measures": "Harvest ripe fruit daily and remove fallen fruit that attracts foraging wasps.",
+      "severity_level": "Low"
+    },
+    "weevil": {
+      "chemical_control": "Apply a labeled insecticide at the first sign of adult feeding or egg-laying, following crop-specific timing.",
+      "organic_control": "Use pheromone traps, destroy infested fruit/tubers, and apply entomopathogenic nematodes where recommended.",
+      "preventative_measures": "Rotate crops, destroy residue, and avoid planting next to last season's infested fields.",
+      "severity_level": "High"
+    },
+    "aphids": {
+      "chemical_control": "Use a selective aphicide or insecticidal soap; avoid unnecessary pyrethroids that flare outbreaks.",
+      "organic_control": "Blast with water, apply insecticidal soap or neem, and conserve lady beetles and lacewings.",
+      "preventative_measures": "Scout new growth twice weekly, control ants, and avoid excess nitrogen.",
+      "severity_level": "Medium"
+    },
+    "Thrips": {
+      "chemical_control": "Apply a labeled thrips material to flowers and growing tips; rotate modes of action because resistance is common.",
+      "organic_control": "Use blue sticky traps, predatory mites, and spinosad where permitted. Remove heavily scarred blooms.",
+      "preventative_measures": "Keep weeds down, use fine-mesh netting on seedlings, and avoid bringing infested transplants into clean houses.",
+      "severity_level": "High"
+    },
+    "corn borer": {
+      "chemical_control": "Time foliar insecticides or Bt to egg hatch before larvae bore into stalks. Consider Bt hybrids where appropriate.",
+      "organic_control": "Use Bt sprays on young larvae, shred stalks after harvest, and encourage parasitoids.",
+      "preventative_measures": "Rotate crops, destroy infested stalks, and monitor with pheromone traps.",
+      "severity_level": "High"
+    },
+    "army worm": {
+      "chemical_control": "Treat larvae while they are small with a labeled insecticide or Bt; large larvae are much harder to kill.",
+      "organic_control": "Apply Bt or spinosad early, plow to disrupt pupae, and use trap crops at borders.",
+      "preventative_measures": "Scout leaf whorls and field edges after storms and keep grassy weeds mowed.",
+      "severity_level": "High"
+    },
+    "peach borer": {
+      "chemical_control": "Apply a trunk-directed insecticide at the base during adult flight as recommended by local degree-day models.",
+      "organic_control": "Use mating disruption, keep trunks weed-free, and mechanically remove gummosis with larvae when found.",
+      "preventative_measures": "Avoid trunk wounds, paint or wrap young trunks, and monitor with pheromone traps.",
+      "severity_level": "High"
+    },
+    "flea beetle": {
+      "chemical_control": "Treat seedlings if shot-hole damage exceeds local thresholds; later-stage plants often tolerate feeding.",
+      "organic_control": "Use row covers until flowering, apply kaolin or spinosad, and keep weeds that host beetles under control.",
+      "preventative_measures": "Delay planting slightly if possible, use trap crops, and avoid planting next to last year's brassica or solanaceous residue.",
+      "severity_level": "Medium"
+    },
+    "Viteus vitifoliae": {
+      "chemical_control": "On own-rooted vines, soil insecticides are rarely fully effective; follow local phylloxera recommendations.",
+      "organic_control": "There is no reliable organic knockdown. Focus on vine vigor and rootstock strategy.",
+      "preventative_measures": "Plant on resistant rootstocks, prevent soil movement on equipment, and do not plant own-rooted vines in infested sites.",
+      "severity_level": "High"
+    },
+    "longlegged spider mite": {
+      "chemical_control": "Use a selective miticide; confirm species because some products are weak on this mite.",
+      "organic_control": "Apply horticultural oil or soap to undersides of leaves and release predatory mites.",
+      "preventative_measures": "Avoid dusty conditions and broad-spectrum insecticides that kill mite predators.",
+      "severity_level": "Medium"
+    },
+    "Scirtothrips dorsalis Hood": {
+      "chemical_control": "Apply a labeled thrips insecticide to new flush; rotate IRAC groups.",
+      "organic_control": "Use spinosad, reflective mulch, and predatory mites. Remove infested flush if practical.",
+      "preventative_measures": "Inspect incoming plants, keep weeds down, and use fine-mesh screens in nurseries.",
+      "severity_level": "High"
+    },
+    "Prodenia litura": {
+      "chemical_control": "Treat young larvae with a labeled insecticide or Bt; spray in the evening when larvae feed.",
+      "organic_control": "Hand-pick, use NPV/Bt products where available, and install pheromone traps.",
+      "preventative_measures": "Scout undersides of leaves for egg masses and destroy crop residue after harvest.",
+      "severity_level": "High"
+    }
+  }
+}
