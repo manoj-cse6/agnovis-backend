@@ -49,6 +49,10 @@ class Analysis(Base):
     expert_referral = Column(String, nullable=True) # JSON string
     follow_up = Column(String, nullable=True) # JSON string
     raw_pest_detections = Column(String, nullable=True) # JSON string
+    # Coarse geographic grid for community cluster detection (~111km per degree)
+    # Never used to expose precise farmer location — only for aggregation
+    lat_grid = Column(Float, nullable=True)   # rounded to CLUSTER_GRID_SIZE degrees
+    lon_grid = Column(Float, nullable=True)   # rounded to CLUSTER_GRID_SIZE degrees
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
     owner = relationship("User", back_populates="analyses")
@@ -110,4 +114,31 @@ class Alert(Base):
     email_error = Column(String, nullable=True)
     # Status for dashboard review
     status = Column(String, default="new")   # new, reviewed, resolved
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+class DiseaseCluster(Base):
+    """
+    Tracks community disease clusters detected when multiple farmers
+    in the same coarse geographic region report the same disease on
+    the same crop within the configured time window.
+
+    PRIVACY: Only coarse grid coordinates are stored — never individual
+    farmer coordinates. Individual farmer identities are never stored here.
+    """
+    __tablename__ = "disease_clusters"
+
+    id = Column(Integer, primary_key=True, index=True)
+    crop = Column(String, index=True)
+    disease = Column(String, index=True)
+    # Coarse grid — NOT precise farmer coordinates
+    lat_grid = Column(Float, nullable=True)
+    lon_grid = Column(Float, nullable=True)
+    case_count = Column(Integer, default=0)
+    # Linked alert ID for the cluster notification
+    alert_id = Column(Integer, ForeignKey("alerts.id"), nullable=True)
+    first_detected = Column(DateTime, default=datetime.datetime.utcnow)
+    last_detected = Column(DateTime, default=datetime.datetime.utcnow)
+    # status: active, monitoring, resolved
+    status = Column(String, default="active")
     created_at = Column(DateTime, default=datetime.datetime.utcnow)

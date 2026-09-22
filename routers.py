@@ -10,6 +10,7 @@ import schemas
 from auth import get_current_user
 from database import get_db
 from weather import get_7day_forecast
+from services import compute_water_advice
 
 history_router = APIRouter(prefix="/history", tags=["HISTORY"])
 fields_router = APIRouter(prefix="/fields", tags=["FIELDS"])
@@ -17,6 +18,8 @@ follow_ups_router = APIRouter(prefix="/follow-ups", tags=["FOLLOW-UP"])
 referrals_router = APIRouter(prefix="/referrals", tags=["REFERRALS"])
 weather_router = APIRouter(prefix="/weather", tags=["WEATHER"])
 alerts_router = APIRouter(prefix="/alerts", tags=["ALERTS"])
+water_advisor_router = APIRouter(prefix="/water-advisor", tags=["WATER-ADVISOR"])
+clusters_router = APIRouter(prefix="/clusters", tags=["CLUSTERS"])
 
 
 # --- Weather Endpoints ---
@@ -327,3 +330,70 @@ def update_referral(
     db.commit()
     db.refresh(referral)
     return referral
+
+
+# --- Water Advisor Endpoints ---
+
+@water_advisor_router.get("", response_model=schemas.WaterAdvisorResponse)
+def get_water_advice(
+    crop: str = Query("Unknown", description="Crop name"),
+    disease: str = Query("Unknown", description="Detected disease name"),
+    latitude: Optional[float] = Query(None, description="Field latitude"),
+    longitude: Optional[float] = Query(None, description="Field longitude"),
+):
+    """
+    Compute a farmer-friendly irrigation recommendation.
+
+    Uses existing weather forecast (Open-Meteo) + disease name to produce
+    transparent rule-based irrigation advice.
+
+    Does NOT require authentication — works for guests too.
+    Does NOT invent soil moisture data or claim exact litres.
+    """
+    weather_data = None
+    if latitude is not None and longitude is not None:
+        try:
+            weather_data = get_7day_forecast(latitude, longitude)
+        except Exception:
+            weather_data = None
+
+    advice = compute_water_advice(crop=crop, disease=disease, weather_data=weather_data)
+    return advice
+
+
+# --- Cluster Endpoints ---
+
+@clusters_router.get("", response_model=List[schemas.DiseaseClusterResponse])
+def get_clusters(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+    status: Optional[str] = Query(None, description="Filter by status: active, monitoring, resolved"),
+    limit: int = Query(20, description="Maximum clusters to return"),
+):
+    """
+    Return recent community disease clusters.
+
+    PRIVACY:
+    - Only coarse grid coordinates are returned (NOT individual farmer locations)
+    - Individual farmer identities are never included
+    - Requires authentication to view
+    """
+    query = db.query(models.DiseaseCluster).order_by(
+        models.DiseaseCluster.last_detected.desc()
+    )
+    if status:
+        query = query.filter(models.DiseaseCluster.status == status)
+    return query.limit(limit).all()
+
+
+@clusters_router.get("/{id}", response_model=schemas.DiseaseClusterResponse)
+def get_cluster_by_id(
+    id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    """Get a specific community disease cluster by ID."""
+    cluster = db.query(models.DiseaseCluster).filter(models.DiseaseCluster.id == id).first()
+    if not cluster:
+        raise HTTPException(status_code=404, detail="Cluster not found")
+    return cluster

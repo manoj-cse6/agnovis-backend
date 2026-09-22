@@ -225,6 +225,138 @@ def _resolve_pest_name(class_id: int, model_names: dict[Any, Any]) -> str:
     return f"class_{class_id}"
 
 
+
+CROP_MODEL_REGISTRY: dict[str, dict[str, Any]] = {
+    "rice": {
+        "model_file": "rice_mobilenetv3_4.pth",
+        "class_json": "rice_class_names.json",
+        "canonical_name": "Rice",
+        "num_classes": 4,
+    },
+    "sugarcane": {
+        "model_file": "sugarcane_mobilenetv3_5.pth",
+        "class_json": "sugarcane_class_names.json",
+        "canonical_name": "Sugarcane",
+        "num_classes": 5,
+    },
+    "cotton": {
+        "model_file": "cotton_mobilenetv3_5.pth",
+        "class_json": "cotton_class_names.json",
+        "canonical_name": "Cotton",
+        "num_classes": 5,
+    },
+    "soybean": {
+        "model_file": "soybean_mobilenetv3_4.pth",
+        "class_json": "soybean_class_names.json",
+        "canonical_name": "Soybean",
+        "num_classes": 4,
+    },
+    "wheat": {
+        "model_file": "wheat_mobilenetv3_4.pth",
+        "class_json": "wheat_class_names.json",
+        "canonical_name": "Wheat",
+        "num_classes": 4,
+    },
+    "jowar": {
+        "model_file": "jowar_mobilenetv3_6.pth",
+        "class_json": "jowar_class_names.json",
+        "canonical_name": "Jowar",
+        "num_classes": 6,
+    },
+    "bajra": {
+        "model_file": "bajra_mobilenetv3_5.pth",
+        "class_json": "bajra_class_names.json",
+        "canonical_name": "Bajra",
+        "num_classes": 5,
+    },
+}
+
+CROP_ALIASES: dict[str, str] = {
+    "sorghum": "jowar",
+    "jowar": "jowar",
+    "pearl millet": "bajra",
+    "pearlmillet": "bajra",
+    "bajra": "bajra",
+    "rice": "rice",
+    "paddy": "rice",
+    "sugarcane": "sugarcane",
+    "sugar cane": "sugarcane",
+    "cotton": "cotton",
+    "soybean": "soybean",
+    "soya": "soybean",
+    "soy": "soybean",
+    "wheat": "wheat",
+}
+
+_crop_models_cache: dict[str, tuple[nn.Module, dict[int, str], str]] = {}
+
+
+def _normalize_crop_name(name: Optional[str]) -> Optional[str]:
+    """Normalize input crop names and aliases to internal registry keys."""
+    if not name or not isinstance(name, str):
+        return None
+    cleaned = _normalize_text(name.strip())
+    if cleaned in CROP_ALIASES:
+        return CROP_ALIASES[cleaned]
+    for alias, canonical in CROP_ALIASES.items():
+        if alias in cleaned:
+            return canonical
+    return cleaned
+
+
+def _get_crop_model(crop_key: str) -> tuple[nn.Module, dict[int, str], str]:
+    """
+    Lazy-loads and caches the specific crop disease model.
+    Must be called under _INFERENCE_LOCK.
+    """
+    if crop_key in _crop_models_cache:
+        return _crop_models_cache[crop_key]
+
+    if crop_key not in CROP_MODEL_REGISTRY:
+        raise KeyError(f"No crop-specific model registered for {crop_key!r}")
+
+    info = CROP_MODEL_REGISTRY[crop_key]
+    model_path = os.path.join(BASE_DIR, "ai", "models", info["model_file"])
+    class_path = os.path.join(BASE_DIR, "ai", "models", info["class_json"])
+
+    if not os.path.isfile(model_path) or not os.path.isfile(class_path):
+        raise FileNotFoundError(f"Missing crop model files: {model_path} or {class_path}")
+
+    class_names = _index_map(_load_json(class_path), class_path)
+    num_classes = len(class_names)
+
+    try:
+        checkpoint = torch.load(model_path, map_location=_torch_device, weights_only=False)
+    except TypeError:
+        checkpoint = torch.load(model_path, map_location=_torch_device)
+
+    model = _build_mobilenetv3_small(num_classes)
+    model.load_state_dict(_extract_state_dict(checkpoint), strict=True)
+    model.to(_torch_device)
+    model.eval()
+
+    canonical_name = info["canonical_name"]
+    _crop_models_cache[crop_key] = (model, class_names, canonical_name)
+    logger.info("Loaded crop-specific disease model for %s (%d classes)", canonical_name, num_classes)
+    return model, class_names, canonical_name
+
+
+def _parse_crop_disease(raw_label: str, canonical_crop: str) -> str:
+    """Extract clean disease label from crop-specific model output."""
+    if "___" in raw_label:
+        _, disease_part = raw_label.split("___", 1)
+        return disease_part.replace("_", " ").strip()
+
+    norm_label = _normalize_text(raw_label)
+    norm_crop = _normalize_text(canonical_crop)
+    if norm_label.startswith(norm_crop):
+        remainder = raw_label[len(canonical_crop):].lstrip(" _-")
+        if remainder:
+            return remainder.replace("_", " ").strip()
+
+    return raw_label.replace("_", " ").strip()
+
+
 def _recommended_action(raw_label: str, crop: str, disease: str, pest_name: str | None) -> str:
     disease_actions = _actions.get("disease_actions", _actions)
     pest_actions = _actions.get("pest_actions", {})
@@ -236,6 +368,10 @@ def _recommended_action(raw_label: str, crop: str, disease: str, pest_name: str 
     action = _lookup_mapping(disease_actions, raw_label)
     if not isinstance(action, str) or not action.strip():
         action = _lookup_mapping(disease_actions, f"{crop}___{disease.replace(' ', '_')}")
+    if not isinstance(action, str) or not action.strip():
+        action = _lookup_mapping(disease_actions, f"{crop} {disease}")
+    if not isinstance(action, str) or not action.strip():
+        action = _lookup_mapping(disease_actions, disease)
 
     is_healthy = "healthy" in _normalize_text(disease)
     if not isinstance(action, str) or not action.strip():
@@ -277,6 +413,8 @@ def _lookup_recommendations(raw_label: str, disease: str, pest_name: str | None)
         pest_table = {}
 
     disease_raw = _lookup_mapping(disease_table, raw_label)
+    if not disease_raw:
+        disease_raw = _lookup_mapping(disease_table, disease)
     is_healthy = "healthy" in _normalize_text(disease)
     disease_rec = _coerce_recommendation(
         disease_raw,
@@ -408,20 +546,35 @@ def load_models() -> None:
 def _classify_disease(
     image: Image.Image,
     selected_crop: Optional[str] = None,
-) -> Tuple[str, str, str, float, str, float]:
-    """Classify leaf disease using MobileNetV3 with robust crop filtering.
+) -> Tuple[str, str, str, float, str, float, str]:
+    """Classify leaf disease using either a crop-specific model or the original 28-class model.
 
-    Returns a 6-tuple:
-        (crop, disease, raw_label, disease_confidence, global_crop, global_confidence)
-
-    ``global_crop`` and ``global_confidence`` represent the unfiltered top
-    prediction and are used by ``_build_warnings`` to detect cross-crop
-    mismatches when ``selected_crop`` is supplied.
+    Returns a 7-tuple:
+        (crop, disease, raw_label, disease_confidence, global_crop, global_confidence, model_used)
     """
+    input_tensor = disease_transform(image).unsqueeze(0).to(_torch_device)
+    norm_crop = _normalize_crop_name(selected_crop)
+
+    # 1. Route to crop-specific model if registered for this crop
+    if norm_crop and norm_crop in CROP_MODEL_REGISTRY:
+        crop_model, class_names, canonical_crop = _get_crop_model(norm_crop)
+        with torch.no_grad():
+            output = crop_model(input_tensor)
+            probabilities = torch.softmax(output, dim=1)[0]
+
+        num_classes = len(class_names)
+        top_idx = int(torch.argmax(probabilities[:num_classes]).item())
+        raw_label = class_names.get(top_idx, f"unknown_{top_idx}")
+        disease_confidence = float(probabilities[top_idx].cpu().item())
+        disease = _parse_crop_disease(raw_label, canonical_crop)
+        model_used = f"{norm_crop}_mobilenetv3"
+        logger.info("Using %s crop-specific disease model (%s)", canonical_crop, model_used)
+
+        return canonical_crop, disease, raw_label, disease_confidence, canonical_crop, disease_confidence, model_used
+
+    # 2. Fallback to original 28-class disease model
     if _disease_model is None:
         raise RuntimeError("Disease model is not loaded.")
-
-    input_tensor = disease_transform(image).unsqueeze(0).to(_torch_device)
 
     with torch.no_grad():
         output = _disease_model(input_tensor)
@@ -457,15 +610,13 @@ def _classify_disease(
     if top_idx is None or top_idx >= num_classes:
         top_idx = global_idx  # reuse already-computed global argmax
 
-    # Always use the raw (unmasked) softmax score — never re-normalized.
-    # This ensures a Tomato hint on a Strawberry image returns genuinely low
-    # confidence (e.g. 0.04) rather than an artificially inflated value.
     disease_confidence = float(probabilities[top_idx].cpu().item())
-
     raw_label = _disease_class_names.get(top_idx, f"unknown_{top_idx}")
     crop, disease = _parse_disease_label(raw_label)
+    model_used = "plant_disease_mobilenetv3_28"
+    logger.info("Using original 28-class disease model (fallback)")
 
-    return crop, disease, raw_label, disease_confidence, global_crop, global_confidence
+    return crop, disease, raw_label, disease_confidence, global_crop, global_confidence, model_used
 
 
 
@@ -526,7 +677,7 @@ def analyze_crop_image(image_path: str, selected_crop: Optional[str] = None) -> 
         raise ValueError(f"Could not read image: {image_path}") from exc
 
     with _INFERENCE_LOCK:
-        crop, disease, raw_label, disease_confidence, global_crop, global_confidence = (
+        crop, disease, raw_label, disease_confidence, global_crop, global_confidence, model_used = (
             _classify_disease(image, selected_crop=selected_crop)
         )
         pest_detected, pest_confidence, raw_pest_detections = _detect_pests(image_path, crop)
@@ -549,6 +700,7 @@ def analyze_crop_image(image_path: str, selected_crop: Optional[str] = None) -> 
         "raw_pest_detections": raw_pest_detections,
         "recommendations": _lookup_recommendations(raw_label, disease, pest_detected),
         "warning": warning,
+        "model_used": model_used,
     }
 
 

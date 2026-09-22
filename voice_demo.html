@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SIH 26131 — Agricultural Voice Assistant Demo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 24px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      background: #fdfdfd;
+      color: #2c3e50;
+    }
+    h2 { color: #2e7d32; margin-top: 0; }
+    .controls { margin-bottom: 20px; display: flex; gap: 10px; align-items: center; }
+    select, button {
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    button.record {
+      background: #2e7d32;
+      color: white;
+      border: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    button.record:hover { background: #1b5e20; }
+    button.record.listening {
+      background: #d32f2f;
+      animation: pulse 1s infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+    .status { font-size: 13px; color: #666; margin-bottom: 12px; min-height: 20px; }
+    .box {
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #eee;
+      min-height: 60px;
+      white-space: pre-wrap;
+    }
+    .label { font-weight: bold; margin-bottom: 4px; color: #444; }
+  </style>
+</head>
+<body>
+
+  <h2>🌾 Farmer Voice Assistant (SIH 26131)</h2>
+  <p>Uses browser-native Speech Recognition (STT) & Speech Synthesis (TTS) connected to <code>POST /chat</code>.</p>
+
+  <div class="controls">
+    <select id="langSelect">
+      <option value="en-IN">English (India)</option>
+      <option value="hi-IN">Hindi (हिन्दी)</option>
+      <option value="te-IN">Telugu (తెలుగు)</option>
+      <option value="ta-IN">Tamil (தமிழ்)</option>
+      <option value="kn-IN">Kannada (ಕನ್ನಡ)</option>
+      <option value="mr-IN">Marathi (मराठी)</option>
+      <option value="bn-IN">Bengali (বাংলা)</option>
+    </select>
+    <button id="micBtn" class="record" onclick="toggleListening()">🎤 Start Speaking</button>
+  </div>
+
+  <div id="status" class="status">Click "Start Speaking" and ask an agricultural question.</div>
+
+  <div class="label">Farmer Input (Speech-to-Text):</div>
+  <div id="transcriptBox" class="box"><em>Your transcribed speech will appear here...</em></div>
+
+  <div class="label" style="margin-top: 20px;">Gemini Assistant Reply:</div>
+  <div id="replyBox" class="box"><em>Assistant response will appear and be spoken aloud here...</em></div>
+
+  <script>
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognizer = null;
+    let isListening = false;
+
+    const micBtn = document.getElementById('micBtn');
+    const statusDiv = document.getElementById('status');
+    const transcriptBox = document.getElementById('transcriptBox');
+    const replyBox = document.getElementById('replyBox');
+    const langSelect = document.getElementById('langSelect');
+
+    if (!SpeechRecognition) {
+      statusDiv.innerHTML = '<strong style="color:red">SpeechRecognition is not supported in this browser. Please use Google Chrome or Microsoft Edge.</strong>';
+      micBtn.disabled = true;
+    } else {
+      recognizer = new SpeechRecognition();
+      recognizer.continuous = false;
+      recognizer.interimResults = false;
+
+      recognizer.onstart = () => {
+        isListening = true;
+        micBtn.classList.add('listening');
+        micBtn.innerText = '⏹ Listening... Speak now';
+        statusDiv.innerText = 'Listening to your microphone...';
+      };
+
+      recognizer.onend = () => {
+        isListening = false;
+        micBtn.classList.remove('listening');
+        micBtn.innerText = '🎤 Start Speaking';
+      };
+
+      recognizer.onerror = (e) => {
+        statusDiv.innerText = 'Speech recognition error: ' + e.error;
+      };
+
+      recognizer.onresult = async (e) => {
+        const text = e.results[0][0].transcript;
+        transcriptBox.innerText = text;
+        statusDiv.innerText = 'Sending question to Gemini (/chat)...';
+        await callChatApi(text);
+      };
+    }
+
+    function toggleListening() {
+      if (!recognizer) return;
+      if (isListening) {
+        recognizer.stop();
+      } else {
+        recognizer.lang = langSelect.value;
+        recognizer.start();
+      }
+    }
+
+    async function callChatApi(message) {
+      replyBox.innerText = "Waiting for response from Gemini...";
+      try {
+        const res = await fetch("http://127.0.0.1:8000/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: message })
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.detail || ("HTTP error " + res.status));
+        }
+
+        const data = await res.json();
+        replyBox.innerText = data.reply;
+        statusDiv.innerText = `Response received from model: ${data.model_used}. Speaking reply...`;
+        speakResponse(data.reply, langSelect.value);
+      } catch (err) {
+        replyBox.innerText = "Error: " + err.message;
+        statusDiv.innerText = "Failed to get response from /chat.";
+      }
+    }
+
+    function speakResponse(text, lang) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.rate = 0.95;
+      window.speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+</html>

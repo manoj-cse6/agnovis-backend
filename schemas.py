@@ -19,7 +19,7 @@ class UserResponse(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class TokenResponse(BaseModel):
     success: bool
@@ -44,7 +44,7 @@ class FieldResponse(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # --- Prediction and History Schemas ---
 class RiskAssessment(BaseModel):
@@ -79,6 +79,7 @@ class PredictionResponse(BaseModel):
     expert_referral: Optional[ExpertReferral] = None
     follow_up: Optional[FollowUpRecommendation] = None
     history_id: Optional[int] = None
+    model_used: Optional[str] = None
 
 class AnalysisHistoryResponse(BaseModel):
     id: int
@@ -95,9 +96,10 @@ class AnalysisHistoryResponse(BaseModel):
     risk_assessment: Optional[RiskAssessment] = None
     expert_referral: Optional[ExpertReferral] = None
     follow_up: Optional[FollowUpRecommendation] = None
+    model_used: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # --- Follow Up Schemas ---
 class FollowUpResponse(BaseModel):
@@ -110,7 +112,7 @@ class FollowUpResponse(BaseModel):
     updated_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class FollowUpUpdate(BaseModel):
     status: Optional[str] = None
@@ -126,7 +128,43 @@ class ReferralResponse(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class ReferralUpdate(BaseModel):
     status: str
+
+
+# --- Disease Cluster Schemas ---
+class DiseaseClusterResponse(BaseModel):
+    id: int
+    crop: str
+    disease: str
+    # Coarse grid values only — never precise farmer coordinates
+    lat_grid: Optional[float] = None
+    lon_grid: Optional[float] = None
+    case_count: int
+    first_detected: datetime
+    last_detected: datetime
+    status: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# --- Water Advisor Schema ---
+class WaterAdvisorResponse(BaseModel):
+    """
+    Rule-based irrigation advisory. This is decision SUPPORT only.
+    No exact litres or soil sensor data — purely weather + disease signals.
+    """
+    decision: str           # e.g. "Do Not Irrigate", "Irrigation Recommended"
+    water_need: str         # "Low", "Moderate", "High"
+    reason: str             # Plain-language explanation
+    disease_consideration: Optional[str] = None  # Only present when disease info is relevant
+    next_check: str         # e.g. "Recheck tomorrow"
+    weather_source: str     # "live" or "fallback/unavailable"
+    disclaimer: str = (
+        "This is AI-based decision support — NOT an automated controller. "
+        "Always consult your local agricultural extension officer for definitive advice."
+    )

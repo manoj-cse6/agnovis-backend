@@ -139,8 +139,11 @@ def main() -> None:
     )
     print(f"  ✓ Mismatch warning present: {w3}")
 
-    print("\n\u2705 All assertions passed.")
+def test_inference_pipeline() -> None:
+    """Run full inference pipeline assertions under pytest."""
+    main()
 
 
 if __name__ == "__main__":
     main()
+

@@ -82,6 +82,14 @@ def get_7day_forecast(latitude: float, longitude: float) -> Dict[str, Any]:
             "windspeed_10m_max",
             "weathercode",
         ],
+        "current": [
+            "temperature_2m",
+            "relative_humidity_2m",
+            "apparent_temperature",
+            "precipitation",
+            "weather_code",
+            "wind_speed_10m",
+        ],
         "timezone": "auto",
         "forecast_days": 7,
     }
@@ -114,11 +122,23 @@ def get_7day_forecast(latitude: float, longitude: float) -> Dict[str, Any]:
             "condition": _wmo_code_to_description(daily.get("weathercode", [None])[i]),
         })
 
+    current_raw = raw.get("current", {})
+    current = {
+        "temperature_2m": current_raw.get("temperature_2m"),
+        "relative_humidity_2m": current_raw.get("relative_humidity_2m"),
+        "apparent_temperature": current_raw.get("apparent_temperature"),
+        "precipitation": current_raw.get("precipitation"),
+        "weather_code": current_raw.get("weather_code"),
+        "wind_speed_10m": current_raw.get("wind_speed_10m"),
+        "condition": _wmo_code_to_description(current_raw.get("weather_code")),
+    }
+
     result = {
         "source": "live",
         "latitude": latitude,
         "longitude": longitude,
         "timezone": raw.get("timezone", "unknown"),
+        "current": current,
         "forecast": forecast,
     }
     _set_cache(key, result)

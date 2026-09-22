@@ -1,0 +1,21 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Runtime uploads
+uploads/
+
+# Temporary files
+.tmp.driveupload/
+
+# SQLite runtime database
+*.db
+*.sqlite
+*.sqlite3

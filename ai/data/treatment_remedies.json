@@ -167,6 +167,198 @@
       "organic_control": "Support beneficial insects and keep foliage dry.",
       "preventative_measures": "Continue staking, base watering, and weekly scouting of lower leaves.",
       "severity_level": "Low"
+    },
+    "Bacterialblight": {
+      "chemical_control": "Apply Copper Oxychloride 50 WP (2.5 g/L) or Streptocycline (100 ppm) spray.",
+      "organic_control": "Foliar spray of fresh cow dung slurry extract or neem oil (3%).",
+      "preventative_measures": "Drain standing water, avoid excessive nitrogen, and cultivate tolerant cultivars.",
+      "severity_level": "High"
+    },
+    "Blast": {
+      "chemical_control": "Foliar spray of Tricyclazole 75 WP (0.6 g/L) or Isoprothiolane 40 EC at boot leaf/panicle emergence.",
+      "organic_control": "Spray Pseudomonas fluorescens (0.2%) or fermented buttermilk solution.",
+      "preventative_measures": "Treat seeds before sowing; avoid late planting and excess nitrogen fertilization.",
+      "severity_level": "High"
+    },
+    "Brownspot": {
+      "chemical_control": "Spray Mancozeb 75 WP (2 g/L) or Propiconazole 25 EC (1 ml/L).",
+      "organic_control": "Seed treatment with Trichoderma viride and application of enriched farmyard manure.",
+      "preventative_measures": "Maintain balanced NPK fertilizer with adequate potassium; avoid moisture stress.",
+      "severity_level": "Medium"
+    },
+    "Tungro": {
+      "chemical_control": "Apply Imidacloprid 17.8 SL (0.3 ml/L) or Thiamethoxam 25 WG to control green leafhoppers.",
+      "organic_control": "Install light traps at night and apply neem seed kernel extract (NSKE 5%).",
+      "preventative_measures": "Destroy stubble after harvest and cultivate resistant varieties like IR36 or Vikramarya.",
+      "severity_level": "High"
+    },
+    "Sugarcane___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Continue organic soil mulching and balanced irrigation.",
+      "preventative_measures": "Scout weekly for stem borers and maintain trash mulching.",
+      "severity_level": "Low"
+    },
+    "Sugarcane___Mosaic": {
+      "chemical_control": "Apply systemic insecticides like Dimethoate (1.7 ml/L) to manage aphid vectors.",
+      "organic_control": "Rogue out and burn infected clumps; spray neem seed oil.",
+      "preventative_measures": "Select setts exclusively from certified disease-free seed nurseries.",
+      "severity_level": "High"
+    },
+    "Sugarcane___RedRot": {
+      "chemical_control": "Dip setts in Carbendazim 0.1% solution for 15 minutes before planting.",
+      "organic_control": "Apply Trichoderma viride (2.5 kg/ha) mixed with 50 kg farmyard manure at planting.",
+      "preventative_measures": "Crop rotation for 2 years with paddy; practice hot water sett treatment (52°C for 30 min).",
+      "severity_level": "High"
+    },
+    "Sugarcane___Rust": {
+      "chemical_control": "Foliar spray of Mancozeb 75 WP (2 g/L) or Propiconazole (1 ml/L).",
+      "organic_control": "Foliar application of sulfur dust (25 kg/ha) or garlic extract.",
+      "preventative_measures": "Ensure proper planting distance to permit sunlight penetration and reduce canopy humidity.",
+      "severity_level": "Medium"
+    },
+    "Sugarcane___Yellow": {
+      "chemical_control": "Spray Imidacloprid or Acetamiprid for whitefly and aphid vector control.",
+      "organic_control": "Install yellow sticky traps (10 per acre) and spray bio-agents.",
+      "preventative_measures": "Use tissue-cultured seedlings and avoid ratooning heavily infested fields.",
+      "severity_level": "Medium"
+    },
+    "Alternaria_Leaf": {
+      "chemical_control": "Foliar spray of Mancozeb 75 WP (2 g/L) or Copper Oxychloride 50 WP (2.5 g/L).",
+      "organic_control": "Foliar spray of garlic-chilli extract or Trichoderma harzianum formulation.",
+      "preventative_measures": "Collect and burn fallen infected leaves; maintain adequate plant spacing.",
+      "severity_level": "Medium"
+    },
+    "Bacterial_Blight": {
+      "chemical_control": "Spray Copper Oxychloride (2.5 g/L) mixed with Streptocycline (100 mg/L) upon first spots.",
+      "organic_control": "Seed soaking in hot water and foliar application of Pseudomonas fluorescens.",
+      "preventative_measures": "Acid-delint all cotton seed; avoid excess irrigation during squaring.",
+      "severity_level": "High"
+    },
+    "Fusarium_Wilt": {
+      "chemical_control": "Soil drenching around base with Carbendazim 50 WP (1 g/L).",
+      "organic_control": "Incorporate Trichoderma viride enriched farmyard manure into soil at last plowing.",
+      "preventative_measures": "Rotate with sorghum, maize, or bajra; avoid field-to-field runoff.",
+      "severity_level": "High"
+    },
+    "Healthy_Leaf": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Maintain regular IPM scouting and beneficial insect habitats.",
+      "preventative_measures": "Balanced NPK application with zinc and boron micronutrients.",
+      "severity_level": "Low"
+    },
+    "Verticillium_Wilt": {
+      "chemical_control": "Soil application of Benomyl or Thiophanate-methyl as recommended locally.",
+      "organic_control": "Deep summer plowing and incorporation of brassica green manures.",
+      "preventative_measures": "Use wilt-resistant cultivars and avoid over-fertilizing with nitrogen.",
+      "severity_level": "High"
+    },
+    "Soybean___Bacterial_leaf_Blight": {
+      "chemical_control": "Foliar spray of Copper Hydroxide or Streptomycin sulphate.",
+      "organic_control": "Spray 3% neem oil or Bacillus subtilis bio-fungicide.",
+      "preventative_measures": "Avoid cultivating when dew or rain is on the foliage; use disease-free certified seed.",
+      "severity_level": "Medium"
+    },
+    "Soybean___healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Maintain routine crop monitoring and Rhizobium nodulation checks.",
+      "preventative_measures": "Ensure proper drainage and balanced sulfur/phosphorus fertility.",
+      "severity_level": "Low"
+    },
+    "Soybean___Septoria_Brown_Spot": {
+      "chemical_control": "Apply Azoxystrobin (0.5 ml/L) or Pyraclostrobin during pod development (R3 stage).",
+      "organic_control": "Foliar application of bio-control formulations and compost tea.",
+      "preventative_measures": "Rotate crops with corn or wheat; till under crop residue after harvest.",
+      "severity_level": "Medium"
+    },
+    "Soybean___Vein_Necrosis": {
+      "chemical_control": "Manage thrips and other sap-feeding vectors using labeled selective insecticides.",
+      "organic_control": "Deploy blue and yellow sticky traps; spray neem formulations.",
+      "preventative_measures": "Eradicate broadleaf weeds surrounding fields which harbor the virus.",
+      "severity_level": "Medium"
+    },
+    "Wheat Brown rust": {
+      "chemical_control": "Spray Propiconazole 25 EC (1 ml/L) or Tebuconazole at first appearance of brown pustules.",
+      "organic_control": "Foliar application of sour buttermilk (diluted 1:10) or neem decoction.",
+      "preventative_measures": "Plant rust-resistant varieties like HD-2967 or PBW-550; avoid delayed sowing.",
+      "severity_level": "High"
+    },
+    "Wheat Healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Maintain standard organic soil nutrition and moisture checks.",
+      "preventative_measures": "Provide timely crown-root and flowering stage irrigations.",
+      "severity_level": "Low"
+    },
+    "Wheat Loose Smut": {
+      "chemical_control": "Seed treatment with Carboxin 75 WP (2.5 g/kg seed) or Tebuconazole (1.5 g/kg seed).",
+      "organic_control": "Solar heat treatment: soak seeds in water for 4 hours then dry in hot sun for 4 hours.",
+      "preventative_measures": "Collect and destroy infected ears in plastic bags before spores disperse.",
+      "severity_level": "High"
+    },
+    "Wheat Yellow rust": {
+      "chemical_control": "Immediate spray of Propiconazole 25 EC (1 ml/L) or Azoxystrobin to stop linear stripe spread.",
+      "organic_control": "Foliar spray with Trichoderma harzianum and cow urine extract.",
+      "preventative_measures": "Cultivate stripe-rust resistant varieties; monitor closely during cool cloudy spells.",
+      "severity_level": "High"
+    },
+    "Anthracnose and Red Rot": {
+      "chemical_control": "Foliar spray of Mancozeb 75 WP (2 g/L) or Carbendazim 50 WP (1 g/L).",
+      "organic_control": "Seed treatment with Trichoderma viride and foliar spray of neem oil.",
+      "preventative_measures": "Ensure good field drainage to prevent waterlogging; rotate with legumes.",
+      "severity_level": "High"
+    },
+    "Cereal Grain molds": {
+      "chemical_control": "Spray Propiconazole 25 EC (1 ml/L) or Mancozeb at flowering if wet weather coincides.",
+      "organic_control": "Spray Pseudomonas fluorescens (0.2%) at panicle emergence.",
+      "preventative_measures": "Harvest immediately after physiological maturity; dry grain below 12% moisture.",
+      "severity_level": "High"
+    },
+    "Covered Kernel smut": {
+      "chemical_control": "Dry seed treatment with Sulfur dust (4 g/kg seed) or Thiram (3 g/kg seed).",
+      "organic_control": "Treat seed with Trichoderma viride powder before sowing.",
+      "preventative_measures": "Destroy smutted heads before harvest to prevent seed lot contamination.",
+      "severity_level": "Medium"
+    },
+    "Head Smut": {
+      "chemical_control": "Seed dressing with Carboxin or Triadimenol before sowing.",
+      "organic_control": "Deep summer plowing to expose resting spores; apply neem cake to soil.",
+      "preventative_measures": "Cut out and burn smutted floral galls before spore sacs rupture.",
+      "severity_level": "High"
+    },
+    "Rust": {
+      "chemical_control": "Foliar spray of Mancozeb 75 WP (2 g/L) or Propiconazole 25 EC (1 ml/L).",
+      "organic_control": "Spray fermented butter milk and cow urine extract.",
+      "preventative_measures": "Plant tolerant hybrids; avoid excessively dense planting.",
+      "severity_level": "Medium"
+    },
+    "loose smut": {
+      "chemical_control": "Seed treatment with Carboxin 75 WP (2 g/kg seed) or Carbendazim.",
+      "organic_control": "Soak seed in hot water (54°C) for 10 minutes, then shade dry.",
+      "preventative_measures": "Always purchase certified disease-free seeds from reputable sources.",
+      "severity_level": "Medium"
+    },
+    "Downy Mildew": {
+      "chemical_control": "Foliar spray of Metalaxyl-Mancozeb (Ridomil MZ @ 2 g/L) at 20 and 40 days after sowing.",
+      "organic_control": "Seed treatment with Trichoderma viride (6 g/kg) and foliar neem spray.",
+      "preventative_measures": "Seed treatment with Metalaxyl (Apron 35 SD @ 6 g/kg); rogue chlorotic seedlings.",
+      "severity_level": "High"
+    },
+    "Exserohilum Leaf Blight": {
+      "chemical_control": "Spray Mancozeb 75 WP (2 g/L) or Chlorothalonil upon spot detection.",
+      "organic_control": "Foliar spray of cow urine (10%) and fermented plant extract.",
+      "preventative_measures": "Destroy infected plant residue after harvest; ensure balanced soil fertility.",
+      "severity_level": "Medium"
+    },
+    "Healthy": {
+      "chemical_control": "No chemical treatment required.",
+      "organic_control": "Continue routine organic crop care and scouting.",
+      "preventative_measures": "Maintain balanced moisture and weed control.",
+      "severity_level": "Low"
+    },
+    "Smut": {
+      "chemical_control": "Spray Carboxin (0.1%) or Mancozeb (0.2%) at boot leaf stage.",
+      "organic_control": "Remove smutted heads in cloth bags before spores disperse.",
+      "preventative_measures": "Crop rotation and clean field borders free of alternate grass hosts.",
+      "severity_level": "Medium"
     }
   },
   "pests": {

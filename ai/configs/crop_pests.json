@@ -40,5 +40,62 @@
     "aphids",
     "Thrips",
     "Prodenia litura"
+  ],
+  "Rice": [
+    "leaf folder",
+    "brown plant hopper",
+    "stem borer",
+    "army worm",
+    "grasshopper",
+    "aphids",
+    "beetle",
+    "weevil"
+  ],
+  "Cotton": [
+    "bollworm",
+    "whitefly",
+    "aphids",
+    "Thrips",
+    "catterpillar",
+    "beetle",
+    "weevil"
+  ],
+  "Sugarcane": [
+    "stem borer",
+    "aphids",
+    "whitefly",
+    "grasshopper",
+    "weevil",
+    "beetle"
+  ],
+  "Soybean": [
+    "catterpillar",
+    "aphids",
+    "beetle",
+    "grasshopper",
+    "pod borer",
+    "army worm"
+  ],
+  "Wheat": [
+    "aphids",
+    "army worm",
+    "grasshopper",
+    "weevil",
+    "beetle"
+  ],
+  "Jowar": [
+    "stem borer",
+    "army worm",
+    "aphids",
+    "grasshopper",
+    "shoot fly",
+    "weevil"
+  ],
+  "Bajra": [
+    "stem borer",
+    "grasshopper",
+    "catterpillar",
+    "army worm",
+    "aphids"
   ]
 }

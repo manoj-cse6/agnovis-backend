@@ -165,6 +165,50 @@ def test_predict_and_history(auth_headers, setup_database):
     print(f"  PASS: history record found — id={data['history_id']}")
 
 
+def test_predict_batch():
+    """PASS: /predict/batch processes multiple images and returns structured results."""
+    from PIL import Image
+    import io
+    img1 = io.BytesIO()
+    img2 = io.BytesIO()
+    Image.new("RGB", (224, 224), color=(34, 139, 34)).save(img1, format="JPEG")
+    Image.new("RGB", (224, 224), color=(50, 100, 50)).save(img2, format="JPEG")
+    img1.seek(0)
+    img2.seek(0)
+
+    response = client.post(
+        "/predict/batch",
+        files=[
+            ("files", ("batch_1.jpg", img1, "image/jpeg")),
+            ("files", ("batch_2.jpg", img2, "image/jpeg")),
+        ]
+    )
+    assert response.status_code == 200, f"Batch predict failed: {response.json()}"
+    data = response.json()
+    assert data["count"] == 2
+    assert len(data["predictions"]) == 2
+    for item in data["predictions"]:
+        assert "filename" in item
+        assert "analysis" in item
+        assert "crop" in item["analysis"]
+        assert "disease" in item["analysis"]
+        assert "disease_confidence" in item["analysis"]
+    print("  PASS: /predict/batch successfully processed batch images")
+
+
+def test_history_by_id(auth_headers, setup_database):
+    """PASS: /history/{id} returns specific analysis record."""
+    hist = client.get("/history", headers=auth_headers)
+    assert hist.status_code == 200
+    hist_list = hist.json()
+    if hist_list:
+        first_id = hist_list[0]["id"]
+        res = client.get(f"/history/{first_id}", headers=auth_headers)
+        assert res.status_code == 200
+        assert res.json()["id"] == first_id
+        print(f"  PASS: /history/{first_id} returned specific analysis")
+
+
 def test_get_follow_ups(auth_headers, setup_database):
     """PASS: /follow-ups returns list (may be empty if no disease was detected)."""
     response = client.get("/follow-ups", headers=auth_headers)
@@ -199,6 +243,20 @@ def test_weather_forecast():
         print(f"  PASS: weather fallback returned (API unavailable or no key)")
 
 
+def test_weather_fallback(monkeypatch):
+    """PASS: /weather/forecast returns fallback structure when API call fails."""
+    import weather
+    monkeypatch.setattr(weather, "WEATHER_API_URL", "http://127.0.0.1:9999/invalid_forecast")
+    # Use un-cached coordinates
+    response = client.get("/weather/forecast?latitude=88.12&longitude=88.34")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["source"] == "fallback/unavailable"
+    assert "note" in data
+    assert data["forecast"] == []
+    print("  PASS: weather fallback returned fallback data upon failure")
+
+
 def test_weather_risk_integration(auth_headers, setup_database):
     """PASS: weather risk in /predict has correct structure."""
     from PIL import Image
@@ -231,6 +289,50 @@ def test_get_alerts(auth_headers, setup_database):
     response = client.get("/alerts", headers=auth_headers)
     assert response.status_code == 200
     print(f"  PASS: /alerts returned {len(response.json())} alert record(s)")
+
+
+def test_alert_creation_and_persistence(auth_headers, setup_database):
+    """PASS: alert creation, persistence in database, and retrieval via /alerts endpoints."""
+    db = TestingSessionLocal()
+    test_alert = models.Alert(
+        trigger_reason="high_confidence",
+        trigger_detail="High-confidence detection: Early Blight on Tomato (91.5%).",
+        crop="Tomato",
+        disease="Tomato Early Blight",
+        disease_confidence=0.915,
+        field_name="North Field",
+        location_name="Hyderabad",
+        latitude=17.385,
+        longitude=78.487,
+        risk_level="High",
+        email_sent=False,
+        status="new"
+    )
+    db.add(test_alert)
+    db.commit()
+    db.refresh(test_alert)
+    alert_id = test_alert.id
+    db.close()
+
+    # Verify retrievable via list
+    list_res = client.get("/alerts", headers=auth_headers)
+    assert list_res.status_code == 200
+    alerts = list_res.json()
+    found = [a for a in alerts if a["id"] == alert_id]
+    assert len(found) == 1
+    assert found[0]["crop"] == "Tomato"
+    assert found[0]["risk_level"] == "High"
+
+    # Verify retrievable via single alert endpoint
+    single_res = client.get(f"/alerts/{alert_id}", headers=auth_headers)
+    assert single_res.status_code == 200
+    assert single_res.json()["trigger_reason"] == "high_confidence"
+
+    # Verify status update
+    patch_res = client.patch(f"/alerts/{alert_id}", json={"status": "reviewed"}, headers=auth_headers)
+    assert patch_res.status_code == 200
+    assert patch_res.json()["status"] == "reviewed"
+    print(f"  PASS: alert creation, persistence, and status patch verified — id={alert_id}")
 
 
 def test_alert_email_non_blocking(monkeypatch, setup_database):

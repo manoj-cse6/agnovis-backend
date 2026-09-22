@@ -3,7 +3,7 @@ Agricultural AI assistant using the Google Gemini API.
 
 Environment variables:
   GEMINI_API_KEY  - required for the Gemini API
-  GEMINI_MODEL    - optional, defaults to gemini-1.5-flash
+  GEMINI_MODEL    - optional, defaults to gemini-2.5-flash
 """
 
 import os
@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/chat", tags=["CHAT"])
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-1.5-flash")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 
 SYSTEM_INSTRUCTION = """You are an expert agricultural assistant for farmers in India.
 Your role is to:
@@ -88,7 +88,10 @@ async def chat(request: ChatRequest):
     Accepts a farmer's question and optional crop analysis context.
     Returns a helpful response from Gemini.
     """
-    if not GEMINI_API_KEY:
+    api_key = GEMINI_API_KEY
+    model_name = GEMINI_MODEL
+
+    if not api_key:
         raise HTTPException(
             status_code=503,
             detail="GEMINI_API_KEY is not configured. Please set it in your environment variables."
@@ -102,9 +105,9 @@ async def chat(request: ChatRequest):
         full_prompt = request.message
 
     try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
+        client = genai.Client(api_key=api_key)
         response = client.models.generate_content(
-            model=GEMINI_MODEL,
+            model=model_name,
             contents=full_prompt,
             config=genai_types.GenerateContentConfig(
                 system_instruction=SYSTEM_INSTRUCTION,
@@ -112,10 +115,10 @@ async def chat(request: ChatRequest):
         )
         reply_text = response.text
     except Exception as exc:
-        logger.error(f"Gemini API error: {exc}")
+        logger.error(f"Gemini API error ({model_name}): {exc}")
         raise HTTPException(
             status_code=502,
-            detail="The AI assistant encountered an error. Please try again later."
+            detail=f"Gemini API error ({model_name}): {exc}"
         )
 
-    return ChatResponse(reply=reply_text, model_used=GEMINI_MODEL)
+    return ChatResponse(reply=reply_text, model_used=model_name)
