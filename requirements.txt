@@ -12,3 +12,4 @@ httpx
 pytest
 google-genai
 pydantic[email]
+python-dotenv
