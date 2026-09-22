@@ -709,7 +709,7 @@ def analyze_crop_images(image_paths: list[str], selected_crop: Optional[str] = N
     return [analyze_crop_image(path, selected_crop=selected_crop) for path in image_paths]
 
 
-load_models()
+
 
 
 if __name__ == "__main__":
