@@ -1613,7 +1613,7 @@ def _detect_pests(
          source=image_path,
          verbose=False,
          device=device,
-         imgsz=288,
+         imgsz=256,
          stream=True,
          max_det=10,
          )
