@@ -2,6 +2,6 @@ torch
 torchvision
 ultralytics
 pillow
-fastapi
+fastapi[standard]
 uvicorn
 python-multipart
