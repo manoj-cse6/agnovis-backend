@@ -1610,10 +1610,13 @@ def _detect_pests(
         )
 
         results = pest_model.predict(
-            source=image_path,
-            verbose=False,
-            device=device,
-        )
+         source=image_path,
+         verbose=False,
+         device=device,
+         imgsz=288,
+         stream=True,
+         max_det=10,
+         )
 
         raw_pest_detections: list[
             dict[str, Any]
