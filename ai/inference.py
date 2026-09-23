@@ -19,11 +19,15 @@ import os
 import threading
 from typing import Any, Dict, List, Optional, Tuple
 
+# Keep CPU inference memory usage low on Render's 512 MB instance.
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+
 import torch
 import torch.nn as nn
 from PIL import Image
 from torchvision import models, transforms
-from ultralytics import YOLO
 
 
 logger = logging.getLogger("sih26131.inference")
@@ -140,7 +144,7 @@ _INFERENCE_LOCK = threading.Lock()
 # after use. This prevents resident model accumulation between requests.
 
 _disease_model: nn.Module | None = None
-_pest_model: YOLO | None = None
+_pest_model: Any = None
 
 # Kept for backward compatibility with older code.
 # It is intentionally never populated.
@@ -1233,8 +1237,10 @@ def _ensure_disease_model() -> nn.Module:
 # YOLO PEST MODEL
 # ============================================================================
 
-def _ensure_pest_model() -> YOLO:
+def _ensure_pest_model() -> Any:
     """Load a fresh YOLO pest model."""
+
+    from ultralytics import YOLO
 
     try:
         model = YOLO(
